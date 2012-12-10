@@ -45,9 +45,19 @@
 
 @implementation BFPopoverColorWell
 
+- (void)setShowsAlpha:(BOOL)showsAlpha
+{
+    _showsAlpha = showsAlpha;
+    
+    if (self.isActive) {
+        [[NSColorPanel sharedColorPanel] setShowsAlpha:self.showsAlpha];
+    }
+}
+
 - (void)setup {
 	self.preferredEdgeForPopover = NSMaxXEdge;
 	self.useColorPanelIfAvailable = YES;
+    self.showsAlpha = YES;
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -87,7 +97,7 @@
 }
 
 - (void)activate:(BOOL)exclusive {
-	if (self.isActive) return;
+    if (self.isActive) return;
 	
 	if (self.useColorPanelIfAvailable && [NSColorPanel sharedColorPanelExists] && [[NSColorPanel sharedColorPanel] isVisible]) {
 		[super activate:exclusive];
@@ -95,6 +105,8 @@
 	} else {
 		[self activateWithPopover];
 	}
+    
+    [[NSColorPanel sharedColorPanel] setShowsAlpha:self.showsAlpha];
 }
 
 - (void)deactivate {

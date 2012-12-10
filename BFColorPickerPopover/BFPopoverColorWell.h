@@ -34,5 +34,6 @@
 
 @property (nonatomic) NSRectEdge preferredEdgeForPopover;
 @property (nonatomic) BOOL useColorPanelIfAvailable;
+@property (nonatomic) BOOL showsAlpha;
 
 @end
